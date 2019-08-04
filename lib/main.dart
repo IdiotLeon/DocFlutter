@@ -1,4 +1,3 @@
-import 'package:english_words/english_words.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
@@ -16,6 +15,7 @@ class MyApp extends StatelessWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
+  final Set<WordPair> _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildSuggestions() {
@@ -34,10 +34,15 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final bool alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
+      ),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
       ),
     );
   }
@@ -55,5 +60,5 @@ class RandomWordsState extends State<RandomWords> {
 
 class RandomWords extends StatefulWidget {
   @override
-  RandomWordsState createState() => RandomWordsState();
+  RandomWordsState createState() => new RandomWordsState();
 }
